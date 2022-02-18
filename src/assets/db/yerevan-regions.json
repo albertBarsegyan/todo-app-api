@@ -1,0 +1,40 @@
+{
+  "regions": [
+    {
+      "name": "Achapnyak",
+      "population": 108282
+    },
+    {
+      "population": 53231,
+      "name": "Avan"
+    },
+    {
+      "population": 117704,
+      "name": "Arabkir"
+    },
+    {
+      "population": 42380,
+      "name": "Davtashen"
+    },
+    {
+      "population": 123092,
+      "name": "Erebuni"
+    },
+    {
+      "population": 125453,
+      "name": "Kentron"
+    },
+    {
+      "population": 132900,
+      "name": "Malatia-Sebastia"
+    },
+    {
+      "population": 126065,
+      "name": "Nor-Nork"
+    },
+    {
+      "name": "Kanaker-Zeytun",
+      "population": 73886
+    }
+  ]
+}
