@@ -1,16 +1,16 @@
 import bodyParser from "body-parser";
+import cors from "cors";
 import express from "express";
-import regionsRouter from "./routes/regions";
+import helmet from "helmet";
 
 const app = express();
 
-app.use(bodyParser.json());
-
-app.use("/regions", regionsRouter);
-
-// PORTs
 const PORT = process.env.PORT || 3000;
 
+app.use(cors());
+app.use(helmet());
+app.use(express.json());
+
 app.listen(PORT, () => {
-  console.log(`Server is running on PORT: ${PORT}`);
+  console.log(`Express application listening on port ${PORT}.`);
 });
