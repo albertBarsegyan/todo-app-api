@@ -1,1 +1,1 @@
-const getUserById = async (id: number) => {};
+export const registerUser = () => {};
