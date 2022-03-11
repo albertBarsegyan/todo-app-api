@@ -9,12 +9,13 @@ import registerRouter from "./routes/register.routes";
 import session from "express-session";
 import bodyParser from "body-parser";
 import logoutRouter from "./routes/logout.routes";
+import { corsOptions } from "./configs/cors";
 
 const app = express();
 
 const PORT = process.env.PORT || 3000;
 
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(helmet());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
