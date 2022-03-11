@@ -6,8 +6,7 @@
   "scripts": {
     "build": "tsc --project ./",
     "start": "node .",
-    "dev:nodemon": "./node_modules/nodemon/bin/nodemon.js",
-    "dev": "tsnd src/app.ts"
+    "dev": "./node_modules/nodemon/bin/nodemon.js"
   },
   "author": "Albert Barsegyan",
   "license": "ISC",

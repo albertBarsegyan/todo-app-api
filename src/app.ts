@@ -28,6 +28,7 @@ app.use(
 );
 
 // routes
+// app.use(RoutePaths.main);
 app.use(RoutePaths.register, registerRouter);
 app.use(RoutePaths.login, loginRouter);
 app.use(RoutePaths.logout, logoutRouter);
