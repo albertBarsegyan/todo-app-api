@@ -4,6 +4,6 @@ import { Router } from "express";
 
 const logoutRouter = Router();
 
-logoutRouter.delete(RoutePaths.main, logoutController);
+logoutRouter.delete(RoutePaths.main(), logoutController);
 
 export default logoutRouter;

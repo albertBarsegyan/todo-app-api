@@ -5,4 +5,7 @@ export const ResponseMessages = {
   wentWrong: "Something went wrong",
   successLogin: "Login success",
   passwordIncorrect: "Password was incorrect",
+  fileSuccessSave: "File saved successfully",
+  successLogout: "Successfully logout",
+  dataEmpty: "empty data",
 };

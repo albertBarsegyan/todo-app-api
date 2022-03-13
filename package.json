@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc --project ./",
     "start": "node .",
-    "dev": "./node_modules/nodemon/bin/nodemon.js"
+    "dev": "NODE_ENV=development ./node_modules/nodemon/bin/nodemon.js"
   },
   "author": "Albert Barsegyan",
   "license": "ISC",

@@ -12,6 +12,16 @@ const mysqlSessionStoreSettings = {
 
 const MySQLStore = expressMySqlSession(session);
 
-export const mysqlSessionStorage = new MySQLStore(mysqlSessionStoreSettings);
+const mysqlSessionStorage = new MySQLStore(mysqlSessionStoreSettings);
 
-debugger;
+export const sessionSettings = {
+  secret: process.env.SESSION_SECRET ?? "key",
+  resave: false,
+  saveUninitialized: true,
+
+  store: mysqlSessionStorage,
+  cookie: {
+    httpOnly: true,
+    maxAge: 3600000,
+  },
+};

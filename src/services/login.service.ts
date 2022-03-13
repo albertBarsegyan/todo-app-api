@@ -1,11 +1,11 @@
-import { comparePassword } from "./../helpers/hashPassword";
+import { comparePassword } from "../helpers/hashPassword.helpers";
 import { IUserLogin } from "./../interfaces/user.interfaces";
-import { hashPassword } from "../helpers/hashPassword";
+import { hashPassword } from "../helpers/hashPassword.helpers";
 import { IUserRegister } from "../interfaces/user.interfaces";
 import { prisma } from "../configs/prismaClient";
 import { ResponseMessages } from "../constants/messages.constants";
 import { IResponse } from "../interfaces/response.interfaces";
-import excludeKeysFromObject from "../helpers/removeKeysFromObject";
+import excludeKeysFromObject from "../helpers/removeKeysFromObject.helpers";
 
 export const loginUser = async ({
   email,

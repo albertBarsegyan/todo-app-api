@@ -1,5 +1,3 @@
-import { RoutePaths } from "./../constants/route.constants";
-import { SessionKeys } from "./../constants/session.constants";
 import { loginUser } from "./../services/login.service";
 import { IUserLogin } from "./../interfaces/user.interfaces";
 import { ResponseMessages } from "../constants/messages.constants";
@@ -12,7 +10,7 @@ export const registrationController = async (req: Request, res: Response) => {
   const userRegisterData = req.body as IUserRegister;
 
   if (isEmpty(userRegisterData)) {
-    return res.send({
+    return res.json({
       status: "error",
       data: null,
       message: ResponseMessages.invalidData,
@@ -21,10 +19,6 @@ export const registrationController = async (req: Request, res: Response) => {
 
   const resData = await registerUser(userRegisterData);
 
-  if (resData.status === "success") {
-    req.session.userId = resData.data.id;
-  }
-
   return res.json(resData);
 };
 
@@ -32,7 +26,7 @@ export const loginController = async (req: Request, res: Response) => {
   const userLoginData = req.body as IUserLogin;
 
   if (isEmpty(userLoginData)) {
-    return res.send({
+    return res.json({
       status: "error",
       data: null,
       message: ResponseMessages.invalidData,
@@ -40,20 +34,28 @@ export const loginController = async (req: Request, res: Response) => {
   }
 
   const resData = await loginUser(userLoginData);
+  const isLoginSuccess = resData.status === "success";
 
-  if (resData.status === "success") {
-    req.session.userId = resData.data.id;
+  if (isLoginSuccess) {
+    req.session.user = resData;
+    return res.json(resData);
   }
-
-  return res.json(resData);
 };
 
-export const logoutController = async (req: Request, res: Response) => {
+export const logoutController = (req: Request, res: Response) => {
   return req.session.destroy((err) => {
     if (err) {
-      throw new Error("Something went wrong with session");
+      return res.json({
+        data: null,
+        status: "error",
+        message: err.message,
+      });
     }
 
-    return res.redirect(RoutePaths.login);
+    return res.json({
+      data: null,
+      status: "success",
+      message: ResponseMessages.successLogout,
+    });
   });
 };

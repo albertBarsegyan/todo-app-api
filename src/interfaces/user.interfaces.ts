@@ -3,6 +3,7 @@ export interface IUserRegister {
   firstName: string;
   lastName: string;
   password: string;
+  profilePicture: string;
 }
 
 export interface IUserLogin {
