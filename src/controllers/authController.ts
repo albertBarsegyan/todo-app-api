@@ -1,10 +1,11 @@
-import { loginUser } from "./../services/login.service";
+import { userLoginService } from "./../services/login.service";
 import { IUserLogin } from "./../interfaces/user.interfaces";
 import { ResponseMessages } from "../constants/messages.constants";
 import { registerUser } from "../services/register.service";
 import { IUserRegister } from "../interfaces/user.interfaces";
 import { Request, Response } from "express";
 import { isEmpty } from "lodash";
+import jwt from "jsonwebtoken";
 
 export const registrationController = async (req: Request, res: Response) => {
   const userRegisterData = req.body as IUserRegister;
@@ -25,7 +26,7 @@ export const registrationController = async (req: Request, res: Response) => {
 export const loginController = async (req: Request, res: Response) => {
   const userLoginData = req.body as IUserLogin;
 
-  if (isEmpty(userLoginData)) {
+  if (isEmpty(userLoginData) || !userLoginData) {
     return res.json({
       status: "error",
       data: null,
@@ -33,13 +34,27 @@ export const loginController = async (req: Request, res: Response) => {
     });
   }
 
-  const resData = await loginUser(userLoginData);
-  const isLoginSuccess = resData.status === "success";
+  const loginResponse = await userLoginService(userLoginData);
+
+  const isLoginSuccess = loginResponse.status === "success";
 
   if (isLoginSuccess) {
-    req.session.user = resData;
-    return res.json(resData);
+    const loggedUserData = loginResponse.data;
+
+    req.session.user = loggedUserData;
+
+    const accessToken = jwt.sign(
+      loggedUserData,
+      process.env.JWT_TOKEN_SECRET || "secret"
+    );
+
+    return res.json({
+      ...loginResponse,
+      accessToken,
+    });
   }
+
+  return res.json(loginResponse);
 };
 
 export const logoutController = (req: Request, res: Response) => {

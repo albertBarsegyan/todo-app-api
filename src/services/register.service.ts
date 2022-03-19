@@ -6,6 +6,7 @@ import { prisma } from "../configs/prismaClient";
 import { ResponseMessages } from "../constants/messages.constants";
 import { IResponse } from "../interfaces/response.interfaces";
 import excludeKeysFromObject from "../helpers/removeKeysFromObject.helpers";
+import { upperFirst } from "lodash";
 
 export const registerUser = async ({
   firstName,
@@ -34,8 +35,8 @@ export const registerUser = async ({
     }
     const newUser = await prisma.users.create({
       data: {
-        first_name: firstName,
-        last_name: lastName,
+        first_name: upperFirst(firstName),
+        last_name: upperFirst(lastName),
         email,
         password: hashPassword(password),
         profile_picture: Paths.baseUrl("images", imageResponse.data),

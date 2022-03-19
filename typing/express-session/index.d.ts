@@ -1,8 +1,9 @@
-import { IResponse } from "./../../src/interfaces/response.interfaces";
+import { JwtPayload } from "jsonwebtoken";
 import session from "express-session";
 
 declare module "express-session" {
   export interface SessionData {
-    user: IResponse;
+    user: any;
+    userToken: string | JwtPayload;
   }
 }

@@ -4,6 +4,7 @@ export const RoutePaths = {
   register: () => "/register",
   logout: () => "/logout",
   user: () => "/user",
+  me: () => "/me",
 };
 
 export const DynamicRoutes = {

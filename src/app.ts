@@ -1,11 +1,10 @@
-import { userController } from "./controllers/userController";
 import { Paths } from "./constants/path.constants";
 import "dotenv/config";
 import { sessionSettings } from "./configs/session";
 import cors from "cors";
 import express from "express";
 import helmet from "helmet";
-import { DynamicRoutes, RoutePaths } from "./constants/route.constants";
+import { RoutePaths } from "./constants/route.constants";
 import loginRouter from "./routes/login.routes";
 import registerRouter from "./routes/register.routes";
 import session from "express-session";

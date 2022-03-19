@@ -1,13 +1,11 @@
 import { comparePassword } from "../helpers/hashPassword.helpers";
 import { IUserLogin } from "./../interfaces/user.interfaces";
-import { hashPassword } from "../helpers/hashPassword.helpers";
-import { IUserRegister } from "../interfaces/user.interfaces";
 import { prisma } from "../configs/prismaClient";
 import { ResponseMessages } from "../constants/messages.constants";
 import { IResponse } from "../interfaces/response.interfaces";
 import excludeKeysFromObject from "../helpers/removeKeysFromObject.helpers";
 
-export const loginUser = async ({
+export const userLoginService = async ({
   email,
   password,
 }: IUserLogin): Promise<IResponse> => {
@@ -40,5 +38,5 @@ export const loginUser = async ({
     };
   }
 
-  return { status: "error", data: null, message: ResponseMessages.invalidData };
+  return { status: "error", data: null, message: ResponseMessages.emailError };
 };

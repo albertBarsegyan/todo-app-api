@@ -22,3 +22,11 @@ export const userController = async (req: Request, res: Response) => {
     status: "success",
   } as IResponse);
 };
+
+export const loggedUserController = async (req: Request, res: Response) => {
+  return res.json({
+    data: req.session.user,
+    message: ResponseMessages.successMessage,
+    status: "success",
+  });
+};
