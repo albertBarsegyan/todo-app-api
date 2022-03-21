@@ -1,3 +1,5 @@
+import path from "path";
+
 export const RoutePaths = {
   main: () => "/",
   login: () => "/login",
@@ -5,8 +7,10 @@ export const RoutePaths = {
   logout: () => "/logout",
   user: () => "/user",
   me: () => "/me",
+  todo: () => "/todo",
 };
 
 export const DynamicRoutes = {
   id: () => "/:id",
+  userId: () => "/:userId",
 };

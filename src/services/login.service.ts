@@ -5,7 +5,7 @@ import { ResponseMessages } from "../constants/messages.constants";
 import { IResponse } from "../interfaces/response.interfaces";
 import excludeKeysFromObject from "../helpers/removeKeysFromObject.helpers";
 
-export const userLoginService = async ({
+export const userLogin = async ({
   email,
   password,
 }: IUserLogin): Promise<IResponse> => {

@@ -1,3 +1,4 @@
+import { getTodoByUserIdFromDb } from "./../services/todo.service";
 import { ResponseMessages } from "./../constants/messages.constants";
 import { IResponse } from "./../interfaces/response.interfaces";
 import { getUserById } from "./../services/user.service";
@@ -24,8 +25,16 @@ export const userController = async (req: Request, res: Response) => {
 };
 
 export const loggedUserController = async (req: Request, res: Response) => {
+  const userData = req.session.user;
+  const userTodos = await getTodoByUserIdFromDb(userData.id);
+
+  const resData = {
+    ...userData,
+    todos: userTodos,
+  };
+
   return res.json({
-    data: req.session.user,
+    data: resData,
     message: ResponseMessages.successMessage,
     status: "success",
   });

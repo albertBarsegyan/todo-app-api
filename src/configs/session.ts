@@ -7,7 +7,10 @@ const mysqlSessionStoreSettings = {
   user: process.env.DATABASE_USER,
   password: process.env.DATABASE_PASSWORD,
   database: process.env.DATABASE_NAME,
-  createDatabaseTable: true,
+  clearExpired: true,
+  checkExpirationInterval: 900000,
+  expiration: 86400000,
+  connectionLimit: 1,
 };
 
 const MySQLStore = expressMySqlSession(session);
@@ -19,8 +22,5 @@ export const sessionSettings = {
   resave: false,
   saveUninitialized: true,
   store: mysqlSessionStorage,
-  cookie: {
-    httpOnly: true,
-    maxAge: 3600000,
-  },
+  cookie: { maxAge: 86400000 },
 };

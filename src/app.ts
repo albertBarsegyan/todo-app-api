@@ -12,6 +12,7 @@ import bodyParser from "body-parser";
 import logoutRouter from "./routes/logout.routes";
 import { corsOptions } from "./configs/cors";
 import userRouter from "./routes/user.routes";
+import todoRouter from "./routes/todo.routes";
 
 const app = express();
 
@@ -31,8 +32,8 @@ app.use(session(sessionSettings));
 app.use(RoutePaths.register(), registerRouter);
 app.use(RoutePaths.login(), loginRouter);
 app.use(RoutePaths.logout(), logoutRouter);
-
 app.use(RoutePaths.user(), userRouter);
+app.use(RoutePaths.todo(), todoRouter);
 
 app.listen(PORT, () => {
   console.log(`listening on port ${PORT}.`);

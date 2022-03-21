@@ -9,4 +9,10 @@ export const ResponseMessages = {
   fileSuccessSave: "File saved successfully",
   successLogout: "Successfully logout",
   dataEmpty: "empty data",
+  addTodoSuccess: "Todo added successfully",
+  updateTodoSuccess: "Todo updated successfully",
+  updateTodoError: "Error occur update todo",
+  addTodoError: "Error occur adding todo",
+  removeTodoSuccess: "Todo deleted successfully",
+  removeTodoError: "Todo delete isn't occur",
 };

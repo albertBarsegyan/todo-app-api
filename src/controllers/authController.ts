@@ -1,4 +1,5 @@
-import { userLoginService } from "./../services/login.service";
+import { getTodoByUserIdFromDb } from "./../services/todo.service";
+import { userLogin } from "./../services/login.service";
 import { IUserLogin } from "./../interfaces/user.interfaces";
 import { ResponseMessages } from "../constants/messages.constants";
 import { registerUser } from "../services/register.service";
@@ -34,22 +35,27 @@ export const loginController = async (req: Request, res: Response) => {
     });
   }
 
-  const loginResponse = await userLoginService(userLoginData);
+  const loginResponse = await userLogin(userLoginData);
 
   const isLoginSuccess = loginResponse.status === "success";
 
   if (isLoginSuccess) {
     const loggedUserData = loginResponse.data;
+    const userTodos = await getTodoByUserIdFromDb(loggedUserData.id);
 
-    req.session.user = loggedUserData;
+    const responseData = { ...loggedUserData, todos: userTodos };
 
     const accessToken = jwt.sign(
       loggedUserData,
       process.env.JWT_TOKEN_SECRET || "secret"
     );
 
+    req.session.user = loggedUserData;
+
     return res.json({
-      ...loginResponse,
+      message: loginResponse.message,
+      status: loginResponse.status,
+      data: responseData,
       accessToken,
     });
   }
@@ -66,7 +72,6 @@ export const logoutController = (req: Request, res: Response) => {
         message: err.message,
       });
     }
-
     return res.json({
       data: null,
       status: "success",
