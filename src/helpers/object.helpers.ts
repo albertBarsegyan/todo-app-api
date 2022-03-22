@@ -1,11 +1,11 @@
 export const getUpdateFields = (
   text?: string | null,
-  statusId?: number | null
+  status_id?: number | null
 ) => {
-  if (text && statusId) {
+  if (text && status_id) {
     return {
       text,
-      statusId,
+      status_id,
     };
   }
 
@@ -15,9 +15,9 @@ export const getUpdateFields = (
     };
   }
 
-  if (statusId) {
+  if (status_id) {
     return {
-      statusId,
+      status_id,
     };
   }
 };

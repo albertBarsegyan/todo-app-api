@@ -32,10 +32,10 @@ model task_statuses {
 }
 
 model todos {
-  id       Int           @id @default(autoincrement())
-  text     String        @db.VarChar(600)
-  userId   Int
-  user     users         @relation(fields: [userId], references: [id])
-  statusId Int
-  status   task_statuses @relation(fields: [statusId], references: [id])
+  id        Int           @id @default(autoincrement())
+  text      String        @db.VarChar(600)
+  user_id   Int
+  user      users         @relation(fields: [user_id], references: [id])
+  status_id Int
+  status    task_statuses @relation(fields: [status_id], references: [id])
 }

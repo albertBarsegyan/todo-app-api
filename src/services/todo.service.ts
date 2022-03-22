@@ -5,16 +5,16 @@ import { IAddTodo } from "./../types/todo.types";
 const selectSettings = {
   text: true,
   id: true,
-  userId: true,
+  user_id: true,
   status: true,
 };
 
-export const addTodoToDb = async ({ text, userId, statusId }: IAddTodo) => {
+export const addTodoToDb = async ({ text, user_id, status_id }: IAddTodo) => {
   const addTodoResponse = await prisma.todos.create({
     data: {
       text,
-      userId,
-      statusId,
+      user_id,
+      status_id,
     },
     select: selectSettings,
   });
@@ -22,11 +22,11 @@ export const addTodoToDb = async ({ text, userId, statusId }: IAddTodo) => {
   return addTodoResponse;
 };
 
-export const getTodoByUserIdFromDb = async (userId: number) => {
+export const getTodoByUserIdFromDb = async (user_id: number) => {
   const todosByUserId = await prisma.todos.findMany({
     where: {
-      userId: {
-        equals: userId,
+      user_id: {
+        equals: user_id,
       },
     },
     select: selectSettings,
@@ -36,17 +36,17 @@ export const getTodoByUserIdFromDb = async (userId: number) => {
 };
 
 export const editTodoFromDb = async (
-  todoId: number,
-  { text, statusId }: { text: string; statusId: number }
+  todo_id: number,
+  { text, status_id }: { text: string; status_id: number }
 ) => {
   let updateResponse;
 
   try {
     updateResponse = await prisma.todos.update({
       where: {
-        id: todoId,
+        id: todo_id,
       },
-      data: { ...getUpdateFields(text, statusId) },
+      data: { ...getUpdateFields(text, status_id) },
       select: selectSettings,
     });
   } catch (e) {
@@ -56,12 +56,12 @@ export const editTodoFromDb = async (
   return updateResponse;
 };
 
-export const removeTodoFromDb = async (todoId: number) => {
+export const removeTodoFromDb = async (todo_id: number) => {
   let removeTodoResponse;
   try {
     removeTodoResponse = await prisma.todos.delete({
       where: {
-        id: todoId,
+        id: todo_id,
       },
       select: selectSettings,
     });

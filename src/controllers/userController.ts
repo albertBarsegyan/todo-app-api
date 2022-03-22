@@ -5,9 +5,9 @@ import { getUserById } from "./../services/user.service";
 import { Request, Response } from "express";
 
 export const userController = async (req: Request, res: Response) => {
-  const userId = Number(req.params.id);
+  const user_id = Number(req.params.id);
 
-  const userResponse = await getUserById(userId);
+  const userResponse = await getUserById(user_id);
 
   if (userResponse) {
     return res.json({

@@ -12,5 +12,5 @@ export const RoutePaths = {
 
 export const DynamicRoutes = {
   id: () => "/:id",
-  userId: () => "/:userId",
+  user_id: () => "/:user_id",
 };

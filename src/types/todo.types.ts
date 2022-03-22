@@ -1,5 +1,5 @@
 export interface IAddTodo {
-  userId: number;
+  user_id: number;
   text: string;
-  statusId: number;
+  status_id: number;
 }

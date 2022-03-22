@@ -1,20 +1,20 @@
 import { ResponseMessages } from "./../constants/messages.constants";
 import {
-  addTodoToDb as addTodoService,
+  addTodoToDb,
   editTodoFromDb,
-  getTodoByUserIdFromDb as getTodoByUserIdService,
+  getTodoByUserIdFromDb,
   removeTodoFromDb,
 } from "./../services/todo.service";
 import { Request, Response } from "express";
 
 export const addTodo = async (req: Request, res: Response) => {
   const { user } = req.session;
-  const { text, statusId } = req.body;
+  const { text, status_id } = req.body;
 
-  const addTodoResponse = await addTodoService({
+  const addTodoResponse = await addTodoToDb({
     text,
-    statusId: Number(statusId),
-    userId: Number(user.id),
+    status_id: Number(status_id),
+    user_id: Number(user.id),
   });
 
   if (!addTodoResponse) {
@@ -33,11 +33,11 @@ export const addTodo = async (req: Request, res: Response) => {
 };
 
 export const editTodo = async (req: Request, res: Response) => {
-  const { id, text, statusId } = req.body;
+  const { id, text, status_id } = req.body;
 
   const editTodoResponse = await editTodoFromDb(id, {
     text,
-    statusId,
+    status_id,
   });
 
   if (!editTodoResponse) {
@@ -56,9 +56,9 @@ export const editTodo = async (req: Request, res: Response) => {
 };
 
 export const getTodoByUserId = async (req: Request, res: Response) => {
-  const { userId } = req.params;
+  const { user_id } = req.params;
 
-  const userTodos = await getTodoByUserIdService(Number(userId));
+  const userTodos = await getTodoByUserIdFromDb(Number(user_id));
 
   return res.json({
     data: userTodos,
