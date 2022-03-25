@@ -13,11 +13,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.registerUser = void 0;
-const hashPassword_1 = require("../helpers/hashPassword");
+const path_constants_1 = require("./../constants/path.constants");
+const saveImageToStore_service_1 = require("./saveImageToStore.service");
+const hashPassword_helpers_1 = require("../helpers/hashPassword.helpers");
 const prismaClient_1 = require("../configs/prismaClient");
 const messages_constants_1 = require("../constants/messages.constants");
-const removeKeysFromObject_1 = __importDefault(require("../helpers/removeKeysFromObject"));
-const registerUser = ({ firstName, lastName, email, password, }) => __awaiter(void 0, void 0, void 0, function* () {
+const removeKeysFromObject_helpers_1 = __importDefault(require("../helpers/removeKeysFromObject.helpers"));
+const lodash_1 = require("lodash");
+const registerUser = ({ firstName, lastName, email, password, profilePicture, }) => __awaiter(void 0, void 0, void 0, function* () {
     const currentUser = yield prismaClient_1.prisma.users.findFirst({
         where: { email },
     });
@@ -29,15 +32,20 @@ const registerUser = ({ firstName, lastName, email, password, }) => __awaiter(vo
         };
     }
     try {
+        const imageResponse = yield (0, saveImageToStore_service_1.saveImageToStore)(profilePicture);
+        if (imageResponse.status === "error") {
+            return imageResponse;
+        }
         const newUser = yield prismaClient_1.prisma.users.create({
             data: {
-                first_name: firstName,
-                last_name: lastName,
+                first_name: (0, lodash_1.upperFirst)(firstName),
+                last_name: (0, lodash_1.upperFirst)(lastName),
                 email,
-                password: (0, hashPassword_1.hashPassword)(password),
+                password: (0, hashPassword_helpers_1.hashPassword)(password),
+                profile_picture: path_constants_1.Paths.baseUrl("images", imageResponse.data),
             },
         });
-        const newUserData = (0, removeKeysFromObject_1.default)(newUser, ["password"]);
+        const newUserData = (0, removeKeysFromObject_helpers_1.default)(newUser, ["password"]);
         return {
             status: "success",
             message: messages_constants_1.ResponseMessages.successMessage,

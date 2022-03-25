@@ -5,6 +5,7 @@
   "main": "./dist/app.js",
   "scripts": {
     "build": "tsc --project ./",
+    "start build": "node ./dist/app.js",
     "start": "node .",
     "dev": "NODE_ENV=development ./node_modules/nodemon/bin/nodemon.js"
   },

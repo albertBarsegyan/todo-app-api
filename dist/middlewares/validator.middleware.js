@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.validate = void 0;
 const validate = (schema) => (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const data = yield schema.validate(req.body);
+        yield schema.validate(req.body);
         return next();
     }
     catch (err) {
