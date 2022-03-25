@@ -41,6 +41,7 @@ export const loginController = async (req: Request, res: Response) => {
 
   if (isLoginSuccess) {
     const loggedUserData = loginResponse.data;
+    console.log("");
 
     const userTodos = await getTodoByUserIdFromDb(loggedUserData.id);
 

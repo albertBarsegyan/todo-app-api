@@ -56,12 +56,12 @@ export const editTodoFromDb = async (
   return updateResponse;
 };
 
-export const removeTodoFromDb = async (todo_id: number) => {
+export const removeTodoFromDb = async (todoId: number) => {
   let removeTodoResponse;
   try {
     removeTodoResponse = await prisma.todos.delete({
       where: {
-        id: todo_id,
+        id: todoId,
       },
       select: selectSettings,
     });

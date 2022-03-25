@@ -15,6 +15,4 @@ todoRoutes.post(RoutePaths.main(), authenticateToken, addTodo);
 todoRoutes.patch(RoutePaths.main(), authenticateToken, editTodo);
 todoRoutes.delete(RoutePaths.main(), authenticateToken, removeTodo);
 
-todoRoutes.get(DynamicRoutes.user_id(), getTodoByUserId);
-
 export default todoRoutes;

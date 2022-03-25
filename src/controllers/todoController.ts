@@ -59,6 +59,7 @@ export const getTodoByUserId = async (req: Request, res: Response) => {
   const { user_id } = req.params;
 
   const userTodos = await getTodoByUserIdFromDb(Number(user_id));
+  console.log("user todos <getTodoByUserId>", userTodos);
 
   return res.json({
     data: userTodos,
