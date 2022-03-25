@@ -19,7 +19,7 @@ export const authenticateToken = (
     });
   }
 
-  jwt.verify(token, process.env.JWT_TOKEN_SECRET || "secret", (err, user) => {
+  jwt.verify(token, process.env.JWT_TOKEN_SECRET || "secret", (err, userId) => {
     if (err) {
       return res.json({
         data: null,
@@ -28,7 +28,7 @@ export const authenticateToken = (
       });
     }
 
-    req.session.user = user;
+    req.session.userId = Number(userId);
 
     next();
   });

@@ -18,15 +18,15 @@ const app = express();
 
 const PORT = process.env.PORT || 3000;
 
-// serve static folders
-app.use("/images", express.static(Paths.storage()));
-
 // middleware connections
 app.use(cors(corsOptions));
 app.use(helmet());
 app.use(bodyParser.urlencoded({ limit: "1mb", extended: false }));
 app.use(express.json({ limit: "1mb" }));
 app.use(session(sessionSettings));
+
+// serve static folders
+app.use("/images", express.static(Paths.storage()));
 
 // routes
 app.use(RoutePaths.register(), registerRouter);

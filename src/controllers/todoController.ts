@@ -8,13 +8,13 @@ import {
 import { Request, Response } from "express";
 
 export const addTodo = async (req: Request, res: Response) => {
-  const { user } = req.session;
+  const { userId } = req.session;
   const { text, status_id } = req.body;
 
   const addTodoResponse = await addTodoToDb({
     text,
     status_id: Number(status_id),
-    user_id: Number(user.id),
+    user_id: Number(userId),
   });
 
   if (!addTodoResponse) {

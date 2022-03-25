@@ -41,16 +41,17 @@ export const loginController = async (req: Request, res: Response) => {
 
   if (isLoginSuccess) {
     const loggedUserData = loginResponse.data;
+
     const userTodos = await getTodoByUserIdFromDb(loggedUserData.id);
 
-    const responseData = { ...loggedUserData, todos: userTodos };
-
     const accessToken = jwt.sign(
-      loggedUserData,
+      loggedUserData.id,
       process.env.JWT_TOKEN_SECRET || "secret"
     );
 
-    req.session.user = loggedUserData;
+    const responseData = { ...loggedUserData, todos: userTodos };
+
+    req.session.userId = loggedUserData.id;
 
     return res.json({
       message: loginResponse.message,

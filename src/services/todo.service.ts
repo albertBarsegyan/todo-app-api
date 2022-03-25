@@ -22,11 +22,11 @@ export const addTodoToDb = async ({ text, user_id, status_id }: IAddTodo) => {
   return addTodoResponse;
 };
 
-export const getTodoByUserIdFromDb = async (user_id: number) => {
+export const getTodoByUserIdFromDb = async (userId: number) => {
   const todosByUserId = await prisma.todos.findMany({
     where: {
       user_id: {
-        equals: user_id,
+        equals: userId,
       },
     },
     select: selectSettings,
